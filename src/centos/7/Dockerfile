@@ -50,7 +50,7 @@ RUN yum install -y \
 
 # Install CMake 3.15.5
 
-RUN wget -O cmake-install.sh https://github.com/Kitware/CMake/releases/download/v3.15.5/cmake-3.15.5-Linux-x86_64.sh && \
+RUN wget -O cmake-install.sh https://github.com/Kitware/CMake/releases/download/v3.23.1/cmake-3.23.1-Linux-x86_64.sh && \
     bash ./cmake-install.sh --skip-license --exclude-subdir --prefix=/usr/local && \
     rm ./cmake-install.sh
 
