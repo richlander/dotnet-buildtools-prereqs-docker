@@ -97,17 +97,17 @@ RUN wget https://netcorenativeassets.blob.core.windows.net/resource-packages/ext
 
 # Obtain signing keys used to sign llvm sources
 COPY release-keys.asc .
-RUN echo "70fbbd52ac7fd5d728a7885c73e64238ebac17864c90702e35f15c1b16939722 release-keys.asc" | sha256sum -c && \
+RUN echo "d3e02c6fbcc641935ebd8b5a0d623563f90fef1a51c161917d7d5ed921e36288 release-keys.asc" | sha256sum -c && \
     gpg --batch --dearmor --output llvm-release-keyring.gpg release-keys.asc && \
     rm release-keys.asc
 
 RUN \
     # Download llvm sources and signature, and verify signature
-    LLVM_VERSION=23.1.4 && \
+    LLVM_VERSION=23.1.5 && \
     wget -O llvm-project.src.tar.xz.sig https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/llvm-project-${LLVM_VERSION}.src.tar.xz.sig && \
-    echo "a9f42dbc5c6675365ea83983465b6f7316bbf95621d52e2623f51f60a8173622 llvm-project.src.tar.xz.sig" | sha256sum -c && \
+    echo "c8ddd0ad6c8c5eb0f902e54f19580340e3c701a53fc7e5890f69851724305382 llvm-project.src.tar.xz.sig" | sha256sum -c && \
     wget -O llvm-project.src.tar.xz https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/llvm-project-${LLVM_VERSION}.src.tar.xz && \
-    echo "819ecf7351f1a66f76b2d701d8942faaf5faeb324cb90c9d5b090de142434bb2 llvm-project.src.tar.xz" | sha256sum -c && \
+    echo "fb50b1eac93ddeb3aa8dab4cfe324dff74f4a9c2bdee6160c9e36188f8d06a6e llvm-project.src.tar.xz" | sha256sum -c && \
     gpgv --keyring ./llvm-release-keyring.gpg llvm-project.src.tar.xz.sig llvm-project.src.tar.xz && \
     rm llvm-project.src.tar.xz.sig llvm-release-keyring.gpg && \
     # Build LLVM cross-toolchain (with support for targeting x86/x64, arm64, arm, s390x and ppc64le architectures)
